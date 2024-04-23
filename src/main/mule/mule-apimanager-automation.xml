@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="49077a7f-f78d-412a-834f-5a3734970ffb" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="mule-apimanager-automationFlow" doc:id="56811a95-dc25-4315-b10c-0966dd23a2b4" >
+		<http:listener doc:name="Listener" doc:id="825ead94-081b-49da-883f-a821d6f7d491" config-ref="HTTP_Listener_config" path="/workflow"/>
+		<logger level="INFO" doc:name="Log Request Recieved" doc:id="a33682d2-9210-4002-8d49-e0552e314db7" message="Request Recieved"/>
+		<ee:transform doc:name="Transform Message" doc:id="ad0cb48e-d046-463f-99ec-8c640b75aa3d" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"msg": "Request Recieved",
+	"timestamp": now()
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
