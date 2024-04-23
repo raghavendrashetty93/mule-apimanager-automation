@@ -68,6 +68,6 @@ jobs:
           echo -e "💡 Access Token is: [$TOKEN]"
           
           echo -e "--- 🖥️ Invoking API Manager Platform API ---"
-          RESPONSE=$(curl -s --location --request PATCH 'https://anypoint.mulesoft.com/apimanager/api/v1/organizations/'$GROUP_ID'/environments/'$ENV_ID'/apis/'$AUTO_ID --header 'Content-Type: application/json' --header 'Authorization: Bearer '$TOKEN --data-raw '{"assetVersion" : "'$RAML_VERSION'" }')
+          RESPONSE=$(curl -i -s --location --request PATCH 'https://anypoint.mulesoft.com/apimanager/api/v1/organizations/'$GROUP_ID'/environments/'$ENV_ID'/apis/'$AUTO_ID --header 'Content-Type: application/json' --header 'Authorization: Bearer '$TOKEN --data-raw '{"assetVersion" : "'$RAML_VERSION'" }')
           echo $RESPONSE
           case "$RESPONSE" in *"HTTP/1.1 200 OK"*"updated"*) echo "🎉 Successfully Updated Asset Version in API Manager";; *) (exit 1);; esac
