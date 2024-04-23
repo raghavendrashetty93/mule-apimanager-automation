@@ -32,7 +32,10 @@ API Manager API and Auto Discovery Property in environment specific properties f
 - You can optionally rename the name of the workflow.
 - Update editor content under ‘Edit new file’ section, using below template.
 
-### Update/Verify following in template: https://github.com/raghavendrashetty93/mule-apimanager-automation/blob/main/.github/workflows/update-autodiscovery-id.yml
+## Reference Workflow
+https://github.com/raghavendrashetty93/mule-apimanager-automation/blob/main/.github/workflows/update-autodiscovery-id.yml
+
+### Update/Verify following in above Reference Workflow
 
 S.No
 Activity
