@@ -35,7 +35,7 @@ jobs:
           BRANCH=$(echo ${{ github.ref }} | sed 's/.*\///')
           BRANCH=$(case $BRANCH in  develop) echo -n "dev" ;; sit) echo -n "sit" ;; *) echo -n "unknown branch" ;; esac)  # I. Update Your Git Branch Names. In my example branch names are develop,sit etc and corresponding properties filenames have dev,sit as environment placeholders
           echo -e "💡 Working Branch is: [$BRANCH]"
-          ENV_ID=$(case $BRANCH in  dev) echo -n "0ff2487a-bec8-4155-1753-06dd98834cab" ;; sit) echo -n "8gg88707-f7fr-840j-31f9-dfa245552329" ;; *) echo -n "unknown branch" ;; esac) # II. Update Your Clouhub Environment Id's
+          ENV_ID=$(case $BRANCH in  dev) echo -n "0c5b3c06-e909-46b2-962c-b63dffe6914e" ;; main) echo -n "8gg88707-f7fr-840j-31f9-dfa245552329" ;; *) echo -n "unknown branch" ;; esac) # II. Update Your Clouhub Environment Id's
           echo -e "💡 Environment ID is: [$ENV_ID]"
 
           PROPERTIES_FILE_PATH=src/main/resources/properties # III. Verify your properties file location in code
