@@ -32,7 +32,7 @@ API Manager API and Auto Discovery Property in environment specific properties f
 - You can optionally rename the name of the workflow.
 - Update editor content under ‘Edit new file’ section, using below template.
 
-### Update/Verify following in template:
+### Update/Verify following in template: https://github.com/raghavendrashetty93/mule-apimanager-automation/blob/main/.github/workflows/update-autodiscovery-id.yml
 
 S.No
 Activity
@@ -56,9 +56,7 @@ VI
 Update
 Your Anypoint Platform credentials
 
-
-
-- Commit changes into your desired branch. In this case its develop branch.
+- Commit changes into your desired branch. In this case its main branch.
 - Since it is a code commit, workflow will run and you can check the details in the console.
 - Click on Details and you will be navigated to the console.
 - Also you can login to Anypoint Platform to verify the update.
