@@ -1,28 +1,24 @@
 # mule-apimanager-automation
 # This is a workflow which Integrates GitHub with Mulesoft API Manager and Automatically Updates corresponding API's Asset Version in API Manager After Successful Code push.
-GitHub Actions workflow to seamlessly update API version in Mulesoft API Manager
-In this step-by-step tutorial, learn how to create an automation using GitHub Actions which updates Mulesoft API’s Asset Version in API Manager.
 
+- GitHub Actions workflow to seamlessly update API version in Mulesoft API Manager.
+- Updates Mulesoft API’s Asset Version in API Manager.
+- Updates after every successful code commit. 
 
-
-Overview: This workflow automatically updates corresponding API's Asset Version in Mulesoft API Manager after every successful code commit done through GitHub. 
-
-It extracts RAML Asset Version from RAML Dependency in POM file and seamlessly updates Asset Version shown in below image, eliminating the need to manually update version after every new API version’s release into Exchange.
-
-
+It extracts RAML Asset Version from RAML Dependency in POM file and seamlessly updates Asset Version, eliminating the need to manually update version after every new API version’s release into Exchange.
 
 ## Prerequisites
 Maintaining RAML as dependency in pom.xml file. Here ‘groupId’ is Anypoint Organization ID of your Organization and version signifies the RAML version.
 
     <dependency>
-      <groupId>d422df1e-cdf7-41a5-a47d-8710f8b89704</groupId>
-      <artifactId>api-manager-automation</artifactId>
-      <version>1.0.1</version>
+      <groupId>137c2019-fcd5-41b8-8525-313ae789beef</groupId>
+      <artifactId>mule-apimanager-automation</artifactId>
+      <version>1.0.0</version>
       <classifier>raml</classifier>
       <type>zip</type>
     </dependency>
 
-API Manager API and Auto Discovery Property in environment specific properties file.
+API Manager API should be created and Auto Discovery Property should be maintained in environment specific properties file.
 
 ## Workflow Creation
 
