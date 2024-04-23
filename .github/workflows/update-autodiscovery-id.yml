@@ -4,7 +4,7 @@ name: Update API's Asset Version in API Manager
 on:
   push:
     branches:
-    - main
+    - develop
     
 jobs:
   GitHub-Actions-API-Asset-Update:
