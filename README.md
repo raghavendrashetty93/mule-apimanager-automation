@@ -26,7 +26,7 @@ API Manager API and Auto Discovery Property in environment specific properties f
 
 ## Workflow Creation
 
-- Create GitHub Secret with name MULESOFT_ANYPOINT_PASSWORD and provide Anypoint Platform password as value. We can create GitHub secrets from the Settings page. It can be either Repository Secret or Organization Secret.
+- Create GitHub Secrets with name MULESOFT_ANYPOINT_PASSWORD, MULESOFT_ANYPOINT_PASSUSERNAME and store Anypoint Platform credentials. We can create GitHub secrets from the Settings page. It can be either Repository Secret or Organization Secret.
 - Navigate to your GitHub repositories branch for which version update automation needs ro be configured.
 - Click on ‘Actions’ and then click on ‘Configure’ button under ‘Simple workflow’
 - You can optionally rename the name of the workflow.
