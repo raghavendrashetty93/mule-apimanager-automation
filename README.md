@@ -30,7 +30,7 @@ It extracts RAML Asset Version from RAML Dependency in POM file and seamlessly u
 - Update editor content under ‘Edit new file’ section, using below template.
 
 ## Reference Workflow
-https://github.com/raghavendrashetty93/mule-apimanager-automation/blob/main/.github/workflows/update-autodiscovery-id.yml
+[https://github.com/raghavendrashetty93/mule-apimanager-automation/blob/main/.github/workflows/update-autodiscovery-id.yml](https://github.com/raghavendrashetty93/mule-apimanager-automation/blob/develop/.github/workflows/update-autodiscovery-id.yml)
 
 ### Update/Verify following in above Reference Workflow
 
