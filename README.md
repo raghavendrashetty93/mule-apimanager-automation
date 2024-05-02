@@ -4,7 +4,8 @@
 - GitHub Actions workflow to seamlessly update API version in Mulesoft API Manager.
 - Updates Mulesoft API’s Asset Version in API Manager.
 - Updates after every successful code commit. 
-
+- Use Mulesoft Platform API's
+  
 It extracts RAML Asset Version from RAML Dependency in POM file and seamlessly updates Asset Version, eliminating the need to manually update version after every new API version’s release into Exchange.
 
 ## Prerequisites
