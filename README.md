@@ -9,8 +9,8 @@
 It extracts RAML Asset Version from RAML Dependency in POM file and seamlessly updates Asset Version, eliminating the need to manually update version after every new API version’s release into Exchange.
 
 ## Prerequisites
-Maintaining RAML as dependency in pom.xml file. Here ‘groupId’ is Anypoint Organization ID of your Organization and version signifies the RAML version.
-
+- Maintaining RAML as dependency in pom.xml file. Here ‘groupId’ is Anypoint Organization ID of your Organization and version signifies the RAML version.
+```
     <dependency>
       <groupId>137c2019-fcd5-41b8-8525-313ae789beef</groupId>
       <artifactId>mule-apimanager-automation</artifactId>
@@ -18,12 +18,12 @@ Maintaining RAML as dependency in pom.xml file. Here ‘groupId’ is Anypoint O
       <classifier>raml</classifier>
       <type>zip</type>
     </dependency>
-
-API Manager API should be created and Auto Discovery Property should be maintained in environment specific properties file.
-
+```
+- API Manager API should be created and Auto Discovery Property should be maintained in environment specific properties file.
+- GitHub Secrets with name MULESOFT_ANYPOINT_USERNAME, MULESOFT_ANYPOINT_PASSWORD and store Anypoint Platform credentials. We can create GitHub secrets from the Settings page. It can be either Repository Secret or Organization Secret.
+  
 ## Workflow Creation
 
-- Create GitHub Secrets with name MULESOFT_ANYPOINT_USERNAME, MULESOFT_ANYPOINT_PASSWORD and store Anypoint Platform credentials. We can create GitHub secrets from the Settings page. It can be either Repository Secret or Organization Secret.
 - Navigate to your GitHub repositories branch for which version update automation needs ro be configured.
 - Click on ‘Actions’ and then click on ‘Configure’ button under ‘Simple workflow’
 - You can optionally rename the name of the workflow.
@@ -34,27 +34,13 @@ https://github.com/raghavendrashetty93/mule-apimanager-automation/blob/main/.git
 
 ### Update/Verify following in above Reference Workflow
 
-S.No
-Activity
-Description
-I
-Update
-Your Git Branch Names
-II
-Update
-Your Clouhub Environment Id's of sandboxes.
-III
-Verify
-Your properties file location in code
-IV
-Update
-Syntax should be as per your properties file structure and also update autodiscovery property name.
-V
-Verify
-Applicable only if your properties file follows .properties format.
-VI
-Update
-Your Anypoint Platform credentials
+| S.No  | Activity | Description |
+| ------------- | ------------- | ------------- |
+| I   | Update  | Your Git Branch Names  |
+| II  | Update  | Your Clouhub Environment Id's of sandboxes.  |
+| III | Verify  | Your properties file location in code  |
+| IV  | Update  | Syntax should be as per your properties file structure and also update autodiscovery property name.  |
+| V   | Verify  | Applicable only if your properties file follows .properties format.  |
 
 - Commit changes into your desired branch. In this case its main branch.
 - Since it is a code commit, workflow will run and you can check the details in the console.
