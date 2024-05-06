@@ -1,5 +1,5 @@
 # mule-apimanager-automation
-# This is a workflow which Integrates GitHub with Mulesoft API Manager and Automatically Updates corresponding API's Asset Version in API Manager After Successful Code push.
+This is a workflow which Integrates GitHub with Mulesoft API Manager and Automatically Updates corresponding API's Asset Version in API Manager After Successful Code push.
 
 - GitHub Actions workflow to seamlessly update API version in Mulesoft API Manager.
 - Updates Mulesoft API’s Asset Version in API Manager.
