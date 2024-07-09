@@ -2,8 +2,10 @@
 
 name: Update API's Asset Version in API Manager
 on:
+  workflow_dispatch:
   push:
     branches:
+    - develop
     - main
     
 jobs:
