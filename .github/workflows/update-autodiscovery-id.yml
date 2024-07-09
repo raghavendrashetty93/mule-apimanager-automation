@@ -1,0 +1,73 @@
+# This is a workflow which Integrates GitHub with Mulesoft API Manager and Automatically Updates corresponding API's Asset Version in API Manager After Successful Code push.
+
+name: Update API's Asset Version in API Manager
+on:
+  push:
+    branches:
+    - develop
+    
+jobs:
+  GitHub-Actions-API-Asset-Update:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+          
+      - name: Installing xmllint program to parse POM XML file 
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libxml2-utils
+          xmllint --version
+          
+      - name: Get RAML version from POM and Update API Manager
+        run: |
+          echo -e "--- 🖥️ Get Auto Discovery ID---"
+          echo "cat /project/dependencies" | xmllint --xpath "//*[local-name()='project']/*[local-name()='dependencies']" pom.xml > dependencies.xml
+          RAML_VERSION=$(xmllint --xpath "//dependency[classifier='raml']/version/text()" dependencies.xml)
+          GROUP_ID=$(xmllint --xpath "//dependency[classifier='raml']/groupId/text()" dependencies.xml)
+          echo -e "💡 Group ID in the committed code is: [$GROUP_ID]"
+          echo -e "💡 RAML version in the committed code is: [$RAML_VERSION]"
+          
+          echo -e "--- 🖥️ Get Auto Discovery ID and Environment ID---"
+          BRANCH=$(echo ${{ github.ref }} | sed 's/.*\///')
+          BRANCH=$(case $BRANCH in  develop) echo -n "dev" ;; sit) echo -n "sit" ;; *) echo -n "unknown branch" ;; esac)  # I. Update Your Git Branch Names. In my example branch names are develop,sit etc and corresponding properties filenames have dev,sit as environment placeholders
+          echo -e "💡 Working Branch is: [$BRANCH]"
+          ENV_ID=$(case $BRANCH in  dev) echo -n "0c5b3c06-e909-46b2-962c-b63dffe6914e" ;; main) echo -n "8gg88707-f7fr-840j-31f9-dfa245552329" ;; *) echo -n "unknown branch" ;; esac) # II. Update Your Clouhub Environment Id's
+          echo -e "💡 Environment ID is: [$ENV_ID]"
+
+          PROPERTIES_FILE_PATH=src/main/resources/properties # III. Verify your properties file location in code
+
+          function parse_yaml {
+             local prefix=$2
+             local s='[[:space:]]*' w='[a-zA-Z0-9_]*' fs=$(echo @|tr @ '\034')
+             sed -ne "s|^\($s\):|\1|" \
+                  -e "s|^\($s\)\($w\)$s:$s[\"']\(.*\)[\"']$s\$|\1$fs\2$fs\3|p" \
+                  -e "s|^\($s\)\($w\)$s:$s\(.*\)$s\$|\1$fs\2$fs\3|p"  $1 |
+             awk -F$fs '{
+                indent = length($1)/2;
+                vname[indent] = $2;
+                for (i in vname) {if (i > indent) {delete vname[i]}}
+                if (length($3) > 0) {
+                   vn=""; for (i=0; i<indent; i++) {vn=(vn)(vname[i])(".")}
+                   printf("%s%s%s=\"%s\"\n", "'$prefix'",vn, $2, $3);
+                }
+             }'
+          }
+
+          AUTO_ID=$(parse_yaml $PROPERTIES_FILE_PATH/$BRANCH-properties.yaml | grep "api.autodiscovery.id" |  tr -d '"' | cut -d "=" -f 2) # IV. Update $BRANCH-properties.yaml syntax as per your properties file structure (In my example its dev-properties.yaml) and Also update autodiscovery property name. (In my example api.autodiscovery.id)
+          # AUTO_ID=$(cat $PROPERTIES_FILE_PATH/$BRANCH.properties | grep "api.autodiscovery.id" | cut -d "=" -f 2) # V. Applicable only if your properties file follows .properties format. If yes then uncomment this line, remove previous line and remove parse_yaml function. 
+          echo -e "💡 Auto Discovery ID is: [$AUTO_ID]"
+          
+          echo -e "--- 🔎 Get Access Token---"
+          curl -s --location --request POST 'https://anypoint.mulesoft.com/accounts/login' --header 'Content-Type: application/json' --data-raw '{ "username":"${{ secrets.MULESOFT_ANYPOINT_USERNAME }}", "password":"${{ secrets.MULESOFT_ANYPOINT_PASSWORD }}" }' >> token.json # VI. Update your Anypoint Platform credentials as secrets
+          echo -e " 🐧 Parse Token File"
+          TOKEN=$(grep -o '"access_token": *"[^"]*"' token.json | grep -o '"[^"]*"$' | tr -d '"')
+          echo -e "💡 Access Token is: [$TOKEN]"
+          
+          echo -e "--- 🖥️ Invoking API Manager Platform API ---"
+          RESPONSE=$(curl -i -s --location --request PATCH 'https://anypoint.mulesoft.com/apimanager/api/v1/organizations/'$GROUP_ID'/environments/'$ENV_ID'/apis/'$AUTO_ID --header 'Content-Type: application/json' --header 'Authorization: Bearer '$TOKEN --data-raw '{"assetVersion" : "'$RAML_VERSION'" }')
+          echo $RESPONSE
+          case "$RESPONSE" in *"HTTP/1.1 200 OK"*"updated"*) echo "🎉 Successfully Updated Asset Version in API Manager";; *) (exit 1);; esac
