@@ -7,8 +7,8 @@ on:
     branches:
     - develop
     - main
-  paths:
-    - pom.xml
+    paths:
+      - pom.xml
       
     
 jobs:
