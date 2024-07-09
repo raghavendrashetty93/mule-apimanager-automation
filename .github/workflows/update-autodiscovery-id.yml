@@ -7,9 +7,9 @@ on:
     branches:
     - develop
     - main
-  push:
-    paths:
-      - pom.xml
+  paths:
+    - pom.xml
+      
     
 jobs:
   GitHub-Actions-API-Asset-Update:
