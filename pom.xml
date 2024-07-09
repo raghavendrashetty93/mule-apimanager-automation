@@ -52,7 +52,7 @@
 		<dependency>
 		  <groupId>137c2019-fcd5-41b8-8525-313ae789beef</groupId>
 		  <artifactId>mule-apimanager-automation</artifactId>
-		  <version>1.0.0</version>
+		  <version>1.0.1</version>
 		  <classifier>raml</classifier>
 		  <type>zip</type>
 		</dependency>
